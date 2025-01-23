@@ -27,6 +27,7 @@ def main():
     Shot.containers = (updatable, drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT /2, shots)
     asteroidfield = AsteroidField()
+    
 
     while True:
         for event in pygame.event.get():
@@ -39,7 +40,12 @@ def main():
         for sprite in asteroids:
             if sprite.collisions(player):
                 print("Game over!")
-                sys.exit()
+                sys.exit()   
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collisions(shot):
+                    shot.kill()
+                    asteroid.split()
         for sprite in drawable:
             sprite.draw(screen)
         #pygame.draw.rect(screen, (255, 0, 0), (100, 100, 50, 50)) #RED SQUARE TEST ON XSERVER SCREEN
